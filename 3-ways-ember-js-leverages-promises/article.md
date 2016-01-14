@@ -1,4 +1,4 @@
-![](http://i.imgur.com/jokY85h.png)
+![](http://i.imgur.com/jokY85h.png?1)
 
 Promises are a relatively new way of handling asynchronous operations in a readable, composable and robust way. With the exception of IE11, [they are built into all modern browsers](http://caniuse.com/#feat=promises).
 
