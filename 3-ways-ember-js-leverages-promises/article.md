@@ -1,3 +1,5 @@
+![](http://i.imgur.com/jokY85h.png)
+
 Promises are a relatively new way of handling asynchronous operations in a readable, composable and robust way. With the exception of IE11, [they are built into all modern browsers](http://caniuse.com/#feat=promises).
 
 Ember.js is a client-side MVC framework for building rich browser applications which has "all parts included". It embraces the latest web technologies while maintaining support for browsers as far back as IE8\. Its official tool to develop Ember applications, ember-cli, supports [ES6 modules](http://www.2ality.com/2014/09/es6-modules-final.html) and [esnext](https://github.com/esnext/esnext). So it should come as no surprise that Ember chooses to use promises as a state-of-the-art solution for handling asynchronicity, and uses them in various ingenious ways.
