@@ -2,7 +2,7 @@ We recently sat down with HackHands Expert, [Richard Clark](http://hackhands.com
 
 Here is what Richard told us about Swift. Check out our video interview with him below for more great insights that you should know about Swift.
 
-<iframe src="//www.youtube.com/embed/qwfkvlOfs1s" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+[![What is Swift](http://i.imgur.com/iaq1TWm.png)](https://youtu.be/qwfkvlOfs1s/ target="_blank")
 
 **1) What is Swift**
 
