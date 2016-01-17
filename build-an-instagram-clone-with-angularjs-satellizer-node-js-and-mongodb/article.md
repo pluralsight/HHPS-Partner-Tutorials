@@ -1,12 +1,18 @@
-## 1\. Introduction
+## 1. Introduction
 
 [Satellizer](https://github.com/sahat/satellizer) is a token-based authentication module for AngularJS that comes with built-in support for Facebook, Google, LinkedIn, Twitter, GitHub, Yahoo and Windows Live OAuth providers, as well as a more traditional email and password sign-in flow.
 
-![Screenshot 2014-09-20 03.58.52](assets/Screenshot-2014-09-20-03.58.52.png)The motivation to build Satellizer came from my frustration with existing <span style="font-family: proximanova_regular, Arial, sans-serif;font-size: 16px">authentication solutions for AngularJS at the time of writing my blog post </span>[Create a TV Show Tracker using AngularJS, Node.js and MongoDB](http://sahatyalkabov.com/create-a-tv-show-tracker-using-angularjs-nodejs-and-mongodb/). Although Satellizer gained quite a bit of popularity, building it was not without its own set of challenges:
+![Screenshot 2014-09-20 03.58.52](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-09-20-03.58.52.png)
+
+
+The motivation to build Satellizer came from my frustration with existing authentication solutions for AngularJS at the time of writing my blog post [Create a TV Show Tracker using AngularJS, Node.js and MongoDB](http://sahatyalkabov.com/create-a-tv-show-tracker-using-angularjs-nodejs-and-mongodb/). Although Satellizer gained quite a bit of popularity, building it was not without its own set of challenges:
 
 1. Writing a library is very different from writing an application. Before Satellizer, I have never written a single JavaScript library, only web apps and boilerplates. I wasn't even sure where to start with building an AngularJS module.
+
 2. Deciding on the authentication flow: popup versus redirect, authentication library (e.g. [Passport](http://passportjs.org) for Node.js or [Omniauth](https://github.com/intridea/omniauth) for Ruby) versus the manual login flow on the back-end, embed client-side SDKs (Facebook, Google, LinkedIn) versus custom OAuth 1.0 and OAuth 2.0 implementations. These are some big decisions that could have resulted in a completely different library.
+
 3. Since I had decided to make Satellizer as flexible as possible by not relying on any third-party SDKs, I had to learn and master OAuth 1.0 and OAuth 2.0 authentication flows in order to implement it in the Satellizer module.
+
 4. [Support for Internet Explorer](http://i1.kym-cdn.com/photos/images/original/000/346/560/157.jpg).
 
 Ok, enough of Satellizer's backstory. Let's get started and build something awesome with Satellizer and AngularJS. One last thing, if you find any typos or mistakes please report them so I could update the post as necessary.
@@ -17,7 +23,7 @@ Enjoy this tutorial.
 
 If you do not have time to read the entire post, here are the links for [Live Demo](https://dl.dropboxusercontent.com/u/14131013/instagram/index.html) and [GitHub Project](https://github.com/sahat/instagram-hackhands). This is what we will be building in this tutorial:
 
-![Screenshot 2014-10-22 16.59.29](assets/Screenshot-2014-10-22-16.59.29.png)
+![Screenshot 2014-10-22 16.59.29](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-22-16.59.29.png)
 
 > **Disclaimer:** This app is not intended to be a fully-featured Instagram clone but rather I want to demonstrate how easy it is to implement user authentication with Satellizer. I chose Instagram in particular because the [Satellizer Demo](https://satellizer.herokuapp.com) already comes with Facebook, Google, Twitter, LinkedIn, GitHub, Yahoo, Windows Live and Foursquare sign-in options, and so I wanted to implement something different this time.
 
@@ -25,9 +31,9 @@ If you do not have time to read the entire post, here are the links for [Live De
 
 Let's start by downloading the latest version of AngularJS. Be sure to click on [Browse additional modules](https://code.angularjs.org/1.3.6/) and download <span style="text-decoration: underline">angular-route.js</span> and <span style="text-decoration: underline">angular-messages.js</span>. The former is for routing (page navigation), while the latter is for displaying input validation error messages.
 
-![Screenshot 2014-10-22 14.32.34](assets/Screenshot-2014-10-22-14.32.34.png)Create a new directory named  **instagram**. Inside, create another directory named **client**. Inside **client**, create  **vendor** directory. Finally, copy the files we just downloaded - <span style="text-decoration: underline">angular.js</span>, <span style="text-decoration: underline">angular-messages.js</span> and <span style="text-decoration: underline">angular-route.js.</span> into **vendor** directory.
+![Screenshot 2014-10-22 14.32.34](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-22-14.32.34.png)Create a new directory named  **instagram**. Inside, create another directory named **client**. Inside **client**, create  **vendor** directory. Finally, copy the files we just downloaded - <span style="text-decoration: underline">angular.js</span>, <span style="text-decoration: underline">angular-messages.js</span> and <span style="text-decoration: underline">angular-route.js.</span> into **vendor** directory.
 
-![](assets/Screenshot-2014-10-22-16.21.47.png)
+![](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-22-16.21.47.png)
 
 In the **client** directory create a new file <span style="text-decoration: underline">index.html</span> with the following contents:
 
@@ -80,7 +86,7 @@ You can read more about AngularJS modules [here](https://docs.angularjs.org/guid
 
 Here is our project directory structure so far:
 
-![](assets/Screenshot-2014-10-22-16.22.16.png)
+![](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-22-16.22.16.png)
 
 Let's go ahead and start a Python web server to see how our page looks. You could double click the <span style="text-decoration: underline">index.html</span>and that would still work for now, but as soon as we start making AJAX requests you will see an error that looks something like this:
 
@@ -118,7 +124,9 @@ Since we have included a [Paper Bootstrap](http://bootswatch.com/paper/) theme f
 </div>
 ```
 
-![](assets/Screenshot-2014-10-22-17.13.53.png)Before moving on any further let's get the CSS styles out of the way. This blog post is not about CSS and for that reason I will not be covering it here. There is really not much to cover anyway since it is mostly Boostrap classes overrides. If you are interested in learning about CSS best practices I would recommend checking out the following blog posts: [Medium’s CSS is actually pretty f***ing good](https://medium.com/@fat/mediums-css-is-actually-pretty-fucking-good-b8e2a6c78b06), [Don’t use IDs in CSS selectors?](http://oli.jp/2011/ids/) and [The Sass Way](http://thesassway.com/beginner).
+![](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-22-17.13.53.png)
+
+Before moving on any further let's get the CSS styles out of the way. This blog post is not about CSS and for that reason I will not be covering it here. There is really not much to cover anyway since it is mostly Boostrap classes overrides. If you are interested in learning about CSS best practices I would recommend checking out the following blog posts: [Medium’s CSS is actually pretty f***ing good](https://medium.com/@fat/mediums-css-is-actually-pretty-fucking-good-b8e2a6c78b06), [Don’t use IDs in CSS selectors?](http://oli.jp/2011/ids/) and [The Sass Way](http://thesassway.com/beginner).
 
 Create a new directory called  **css** inside **client**, then inside this new  **css** directory create <span style="text-decoration: underline">styles.css</span> file and paste the following:
 
@@ -264,7 +272,7 @@ a:hover {
 
 ```
 
-![Screenshot 2014-10-22 17.19.22](assets/Screenshot-2014-10-22-17.19.22.png)And lastly, add the stylesheet reference to the **<head>** block of <span style="text-decoration: underline">index.html:</span>
+![Screenshot 2014-10-22 17.19.22](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-22-17.19.22.png)And lastly, add the stylesheet reference to the **<head>** block of <span style="text-decoration: underline">index.html:</span>
 
 
 ``` xml
@@ -272,7 +280,7 @@ a:hover {
 ```
 
 
-![Screenshot 2014-10-22 19.24.10](assets/Screenshot-2014-10-22-19.24.10.png)
+![Screenshot 2014-10-22 19.24.10](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-22-19.24.10.png)
 
 ## 5. Routing
 
@@ -307,7 +315,7 @@ $routeProvider
 ```
 
 
-![Screenshot 2014-10-22 22.53.49](assets/Screenshot-2014-10-22-22.53.49.png)
+![Screenshot 2014-10-22 22.53.49](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-22-22.53.49.png)
 
 Each **.when****()** method above takes  a relative URL path as its first argument and an object as its second argument. When we visit the index route "**/**"Angular will load <span style="text-decoration: underline">home.html</span> from the **views** directory and make **HomeCtrl** controller available to that template.
 
@@ -343,7 +351,9 @@ In the **views** directory create the following HTML files:
 
 We need to include above JavaScript files from the **controllers** directory into <span style="text-decoration: underline">index.html</span> to load them.
 
-![Screenshot 2014-10-23 00.50.21](assets/Screenshot-2014-10-23-00.50.21.png)Open **views/**<span style="text-decoration: underline">home.html</span> template and paste the following code:
+![Screenshot 2014-10-23 00.50.21](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-23-00.50.21.png)
+
+Open **views/**<span style="text-decoration: underline">home.html</span> template and paste the following code:
 
 
 ``` xml
@@ -422,17 +432,14 @@ angular.module('Instagram')
   });
 ```
 
-
-I don't think I could explain Angular controllers any better than Todd Motto, the way he did in his [AngularJS guide](https://www.airpair.com/angularjs/posts/angularjs-tutorial#5-controllers). That post is the first thing anyone should read who is starting out with AngularJS. I am really surprised it has not been featured on front page of [https://angularjs.org](https://angularjs.org/).
-
 Reload the browser and you should see the following page:
-![Screenshot 2014-10-23 01.53.11](assets/Screenshot-2014-10-23-01.53.11.png)
+![Screenshot 2014-10-23 01.53.11](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-23-01.53.11.png)
 
 ## 7. Satellizer
 
 Go to [https://github.com/sahat/satellizer](https://github.com/sahat/satellizer) and click on the ** Download ZIP** button on the right sidebar. Extract the archive, then copy <span style="text-decoration: underline">satellizer.js</span> to **instagram/client/vendor** directory.
 
-![Screenshot 2014-10-23 20.23.26](assets/Screenshot-2014-10-23-20.23.26.png)
+![Screenshot 2014-10-23 20.23.26](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-23-20.23.26.png)
 
 Open <span style="text-decoration: underline">index.html</span> and include the reference to Satellizer before **app.js** script tag:
 
@@ -475,7 +482,9 @@ $authProvider.oauth2({
 ```
 
 
-![](assets/Screenshot-2014-10-23-21.09.17.png)As you may have guessed, just by looking at the directory structure, we will be running the Express server on a separate port from the Angular app. Our API back-end will be completely independent of the front-end. I chose to do it this way because it seems like a common use case with single page apps and since I have never built a web app using this architecture before, I thought this would be a good time as any to do it.
+![](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-23-21.09.17.png)
+
+As you may have guessed, just by looking at the directory structure, we will be running the Express server on a separate port from the Angular app. Our API back-end will be completely independent of the front-end. I chose to do it this way because it seems like a common use case with single page apps and since I have never built a web app using this architecture before, I thought this would be a good time as any to do it.
 
 I typically include my single page apps inside the **public** directory that is served by Express or some other web server. So, because of that, I never had to deal with CORS (cross original resource sharing) business.
 
@@ -489,7 +498,7 @@ The **url** server endpoint is where most of the work will be done. It will hand
 
 The **redirectUri** must match the the _Redirect URI_ specified in your app on [instagram.com/developer](http://instagram.com/developer) as shown in the screenshot below. This is where Instagram will redirect to after user successfully authorizes our app to use their profile information, feed and potentially perform actions like commenting on and liking photos on their behalf.
 
-![Screenshot 2014-10-23 21.21.48](assets/Screenshot-2014-10-23-21.21.48.png)
+![Screenshot 2014-10-23 21.21.48](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-23-21.21.48.png)
 
 The **scope** and **scopeDelimiter** are related to each other in that the [scope](http://instagram.com/developer/authentication/#scope) is used for requesting additional permissions such liking a photo, commenting on a photo, following or unfollowing users, while the **scopeDelimiter** is a separator between multiple scopes. Built-in providers already have a proper scope separator so you don't have to think about that.
 
@@ -504,11 +513,11 @@ When I built Satellizer I used a _comma_ to separate multiple scopes until I fou
 
 Finally, the **authorizationEndpoint** is the URL for the consent screen. Unfortunately, sometimes it requires a little bit of digging into an API documentation to find that URL. A [good documentation](https://developer.github.com/v3/oauth/) will make it easily accessible for developers.
 
-![Screenshot 2014-10-23 22.11.24](assets/Screenshot-2014-10-23-22.11.24.png)
+![Screenshot 2014-10-23 22.11.24](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-23-22.11.24.png)
 
 Before going any further, let's create a new app on [instagram.com/developer/clients/register/](http://instagram.com/developer/clients/register/) because you should be using your own _Client ID_ and _Client Secret_, not mine. Enter your _application name_, _description,_ then set _Redirect URI_ and _Website_ to **http://localhost:8000**. Next, replace my **clientId** string in <span style="text-decoration: underline">app.js</span> and my **clientSecret** in <span style="text-decoration: underline"> **server**/config.js</span> with the ones you just obtained from Instagram.
 
-![Screen Shot 2014-11-23 at 7.35.54 PM](assets/Screen-Shot-2014-11-23-at-7.35.54-PM.png)
+![Screen Shot 2014-11-23 at 7.35.54 PM](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screen-Shot-2014-11-23-at-7.35.54-PM.png)
 
 Go back to **HomeCtrl** controller in <span style="text-decoration: underline">**controllers**/home.js</span>  and update your code. First, inject the following services:
 
@@ -538,7 +547,15 @@ $scope.linkInstagram = function() {
 
 > **Note:** Hopefully you are familiar with the promises syntax using **.then **/ **.catch** methods. If, however, you have only used callbacks up to this point and promises are completely alien to you then you may want to watch this [Egghead.io screencast](https://thinkster.io/egghead/promises/) on AngularJS promises. _I actually didn't understand how promises work in JavaScript until earlier this year when I started learning AngularJS._
 
-If you refresh the browser you will not see anything new because **isAuthenticated()** will still return _false_ and the button with **linkInstagram()** action will not be visible just yet.Let's step back for a moment to see what we have so far. This would be a great time to catch up and see if you have missed anything along the way.![](assets/Screenshot-2014-10-26-22.23.58.png) ![Screenshot 2014-10-23 22.53.22](assets/Screenshot-2014-10-23-22.53.22.png) ![Screenshot 2014-10-23 22.53.13](assets/Screenshot-2014-10-23-22.53.13.png) ![Screenshot 2014-10-23 22.53.04](assets/Screenshot-2014-10-23-22.53.04.png)
+If you refresh the browser you will not see anything new because **isAuthenticated()** will still return _false_ and the button with **linkInstagram()** action will not be visible just yet.Let's step back for a moment to see what we have so far. This would be a great time to catch up and see if you have missed anything along the way.
+
+![](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-26-22.23.58.png) 
+
+![Screenshot 2014-10-23 22.53.22](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-23-22.53.22.png)
+
+![Screenshot 2014-10-23 22.53.13](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-23-22.53.13.png) 
+
+![Screenshot 2014-10-23 22.53.04](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-23-22.53.04.png)
 
 ## 8. Login Page
 
@@ -595,7 +612,9 @@ Open <span style="text-decoration: underline">login.html</span> and enter the fo
 
 Refresh the Browser and you should now see the following login page.
 
-![Screenshot 2014-10-26 22.51.31](assets/Screenshot-2014-10-26-22.51.31.png)This code **ng-submit="emailLogin()** _on line 7_ will execute specified function in our **LoginCtrl** controller that we are going to create next. It is very similar to **$('form').submit()** in jQuery.
+![Screenshot 2014-10-26 22.51.31](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-26-22.51.31.png)
+
+This code **ng-submit="emailLogin()** _on line 7_ will execute specified function in our **LoginCtrl** controller that we are going to create next. It is very similar to **$('form').submit()** in jQuery.
 
 On _line 8_ we conditionally apply Bootstrap's **has-error** class based on the following two form states:
 
@@ -614,7 +633,7 @@ That's why we somehow need to reset the validity of the **server** validator. A 
 
 Below is the finished project's screenshot of what it looks like after we submit a form using an email address that does exist in a database. That message _"Incorrect email"_ is sent from the server, defined in the **/auth/login** route that we will implement in [Step #13](#login-and-signup-express-routes).
 
-![Screenshot 2014-10-27 00.32.32](assets/Screenshot-2014-10-27-00.32.32.png)
+![Screenshot 2014-10-27 00.32.32](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-27-00.32.32.png)
 
 Next, open <span style="text-decoration: underline">login.js</span> and enter the following code:
 
@@ -684,11 +703,11 @@ In the case of Facebook login, calling **$auth.authenticate('facebook')** will o
 
 The **url** property on _line 2_ is a server endpoint that handles most of the authentication flow that we will implement soon. Remember, since Satellizer uses [explicit grant type](https://api.stackexchange.com/docs/authentication) we need to have a back-end for authentication as well. Although Satellizer does support pure client-side authentication using [implicit grant type](http://oauthlib.readthedocs.org/en/latest/oauth2/grants/implicit.html) as of [pull request 157](https://github.com/sahat/satellizer/pull/157) I am not going to cover it in this tutorial. The main difference between two grant types that actually matters to us is that one grant can be done purely on the client and another grant cannot.
 
-![Screenshot 2014-10-23 22.11.24](assets/Screenshot-2014-10-23-22.11.24.png)
+![Screenshot 2014-10-23 22.11.24](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-23-22.11.24.png)
 
 With explicit grant type when you authorize your app on the screen above, Instagram will issue you a short-lived **authorization** **code** that you must exchange for an **access_token** on the server. This cannot be done just on the client-side alone. You can then use that **access_token** to query for user's profile information or perform certain actions on behalf of that user.  If you have ever used a library like [Passport.js](http://passportjs.org), that's what it is essentially doing [under the hood](https://github.com/jaredhanson/passport-instagram/blob/master/lib/passport-instagram/strategy.js#L45-L46). For this tutorial, however, we will write it ourselves so you can see and understand the entire OAuth 2.0 flow from start to finish.
 
-![Screenshot 2014-10-27 23.43.11](assets/Screenshot-2014-10-27-23.43.11.png)
+![Screenshot 2014-10-27 23.43.11](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-27-23.43.11.png)
 
 With implicit grant type, Instagram will issue you an **access_token** right away, instead of an **authorization code**. That means you can do user authentication entirely on the client-side similar to Facebook and Google JavaScript SDKs. The down-side to this approach is that when you obtain user's profile and decide to save that user in your database how can you be sure that the profile information and access token they are sending to you is valid?
 
@@ -699,7 +718,7 @@ You cannot, not without verifying it first. These verification checks range from
 As you saw in the screenshot above, after authorizing the app, the popup window redirects back to initial page. This was a design choice to keep everything self-contained in <span style="text-decoration: underline">satellizer.js</span> without requiring users to setup additional routes and templates specifically for **redirectUrl** similar to how I have it in [Hackathon Starter](https://github.com/sahat/hackathon-starter/blob/master/app.js#L163-L164). Typically, a popup window will close fast enough that you won't even see your loaded page in there. But if you do have a nicer solution please open an issue or submit a pull request on GitHub.
 
 The **scopePrefix** on _line 6_ is a special case for Google . Take note of the Tip below. It basically requires you to prepend **openid** to the scopes string.
-![Screenshot 2014-10-28 00.56.07](assets/Screenshot-2014-10-28-00.56.07.png)
+![Screenshot 2014-10-28 00.56.07](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-28-00.56.07.png)
 
 > **Note:** This StackExchange post - [Why use OpenID Connect instead of plain OAuth?](http://security.stackexchange.com/questions/37818/why-use-openid-connect-instead-of-plain-oauth) explains the differences between OAuth and OpenID Connect (newer standard).
 
@@ -774,7 +793,7 @@ I think that covers just about everything for Login page. But before we move to 
 
 Create a new folder called **directives** inside the **client **directory, then inside it create a file called <span style="text-decoration: underline">serverError.js</span>.
 
-![Screenshot 2014-12-07 15.55.10](assets/Screenshot-2014-12-07-15.55.10.png)
+![Screenshot 2014-12-07 15.55.10](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-12-07-15.55.10.png)
 
 It's a very simple Angular directive - its primary purpose is to clear error messages such as _Invalid Username or Password_ and reset form validity whenever user starts typing again. Otherwise, after you get an error message back from the server you will not be able to re-submit the form with our current implementation. Once again, please refer to [Todd Motto's AngularJS guide](https://www.airpair.com/angularjs/posts/angularjs-tutorial#8-directives-core-) to learn more about directives or see my [Introduction to AngularJS](https://speakerdeck.com/sahat/building-a-tv-show-tracker-with-angularjs) slides.
 
@@ -893,13 +912,15 @@ If you disable automatic sign in, Satellizer will simply redirect a user to the 
 
 When you reload the browser and click on Signup in the Navbar you should see something like the screenshot below:
 
-[![Screenshot 2014-10-28 21.47.32](assets/Screenshot-2014-10-28-21.47.32.png)](assets/Screenshot-2014-10-28-21.47.32.png)Let's shift gears for a moment and switch over to our back-end code. We will be using Node.js and Express because that's what I am most comfortable with but hopefully you already knew that. The code should be simple enough for you to port it to other web frameworks and languages of your choice. For example, I have written [PHP and Python examples](https://github.com/sahat/satellizer/tree/master/examples/server) for Satellizer with minimal knowledge of both languages.
+[![Screenshot 2014-10-28 21.47.32](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-28-21.47.32.png)](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-28-21.47.32.png)
+
+Let's shift gears for a moment and switch over to our back-end code. We will be using Node.js and Express because that's what I am most comfortable with but hopefully you already knew that. The code should be simple enough for you to port it to other web frameworks and languages of your choice. For example, I have written [PHP and Python examples](https://github.com/sahat/satellizer/tree/master/examples/server) for Satellizer with minimal knowledge of both languages.
 
 ## <span style="color: #000000">**10\. Express Skeleton [](#toc)**</span>
 
 In the **instagram** directory create a new folder called **server**, it should be a sibling of **client**.
 
-[![Screenshot 2014-10-28 22.03.00](assets/Screenshot-2014-10-28-22.03.00.png)](assets/Screenshot-2014-10-28-22.03.00.png)
+[![Screenshot 2014-10-28 22.03.00](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-28-22.03.00.png)](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-28-22.03.00.png)
 
 In the **server** directory create two new files: <span style="text-decoration: underline">package.json</span> and <span style="text-decoration: underline">server.js</span>. Open <span style="text-decoration: underline">package.json</span> and paste the following code with all package dependencies for our app:
 
