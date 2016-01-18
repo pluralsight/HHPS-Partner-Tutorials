@@ -25,24 +25,20 @@ class Recipe < ActiveRecord::Base
 end
 ```
 
-
 ### Adding the join model attributes to the mass assignment white-list
 
 Our Recipe model contains the most configuration to set things up. As is expected, the `attr_accessible` property contains the properties of the Recipe model itself that can be modified, with the addition of a new property `:quantities_attributes`. This property will allow modification of the Recipe model (updating and creating) to also modify attributes of the associated Quantities records.
 
 ### Glueing the models to each other through a join model
 
-
 ``` ruby
 has_many :quantities
 has_many :ingredients, :through => :quantities
 ```
 
-
 It used to be a complete pain in the butt to setup many to many relationships with Ruby on Rails and `has_and_belongs_to_many` configurations. Now, with Rails 3 though its super easy via the [has_many, through](http://guides.rubyonrails.org/association_basics.html#the-types-of-associations) property. This allows you to easily setup a relationship from one model to another with a join model between them to easily provide access to the models from each other. In this case for example `@recipe.ingredients` and with the `through` command on the Ingredient model end `@ingredient.recipes`.
 
 ### Setting up the model's ability to modify other model attributes
-
 
 ``` ruby
 accepts_nested_attributes_for :quantities,
@@ -79,11 +75,9 @@ attr_accessible :amount,
     :ingredient_attributes
 ```
 
-
 Here we add the `:ingredient` and `:ingredient_attributes` to the mass-assignment white-list of the join model. This allows modification of the join model (Quantity) through the parent model (Recipe) to also modify and create entries in the final relational model (Ingredient). Note that the mass-assignment white-list on the join model also includes its own attribute of an `:amount`, something that using a `has_many, through` relationship gives us the ability to do.
 
 ### Creating the join relationship
-
 
 ``` ruby
 belongs_to :recipe
@@ -99,7 +93,6 @@ As this is a many to many relationship, there will be many recipes and many ingr
 accepts_nested_attributes_for :ingredient,
     :reject_if => :all_blank
 ```
-
 
 Setting up a similar accepts_nested_atrributes_for specification on the join model allows the join model (Quantity) to modify properties of the final relational model (Ingredient) so when a Recipe is saved with a nested form, the individual Quantity entries can have Ingredient properties and modify those Ingredient properties.
 
@@ -168,7 +161,6 @@ The tricky part of getting all this model magic to work of course is getting you
 <% end %>
 ```
 
-
 ### The nested form
 
 All of this form is pretty standard until you get to the nested portion, then it gets a bit tricky, so I'll walk through each piece.
@@ -180,9 +172,7 @@ All of this form is pretty standard until you get to the nested portion, then it
 <% end %>
 ```
 
-
 This loop creates all the form entry fields for your ingredients and their quantity amounts through a partial named after the Quantities themselves. The partial name here is important for Cocoon to work properly: `_[model]_fields.html.erb`.
-
 
 ``` ruby
 <%= link_to_add_association 'add ingredient', f, :quantities,
@@ -191,9 +181,7 @@ This loop creates all the form entry fields for your ingredients and their quant
     :wrap_object => Proc.new {|quantity| quantity.build_ingredient; quantity } %>
 ```
 
-
 This a new helper method introduced by Cocoon to help create additional Quantity/Ingredient fields in your form. Not all of the properties shown here on the `link_to_add_association` method are required, but some are necessary for our form interaction to work properly, notably the `:wrap_object` property:
-
 
 ``` ruby
 :wrap_object => Proc.new {|quantity| quantity.build_ingredient; quantity }
@@ -206,7 +194,6 @@ The `data-association-insertion-node` and `data-association-insertion-method` pr
 ### The nested form partial
 
 `_quantity_fields.html.erb`
-
 
 ``` ruby
 <li class="control-group nested-fields">
@@ -223,10 +210,8 @@ The `data-association-insertion-node` and `data-association-insertion-method` pr
 </li>
 ```
 
-
 The nested partial here will be used with the output form and the template for any added Quantity/Ingredient fields to your form interface. The unique piece of this template added for Cocoon is the link_to_remove_association method. This method automatically looks for the [closest()](http://api.jquery.com/closest/) element to it with the `nested-fields` class and will remove the fields from the form when clicked and therefor from the database record upon form submission. These properties cannot be modified, so make sure that the `link_to_remove_association` method is contained within an element in the partial file with the `nested-fields` class.
 
 ## Voila!
 
 That's it! Now that we have sprinkled the appropriate Ruby pixie dust in the correct areas, the Rails framework will take over the rest of the work. Ain't Rails beautiful?
-
