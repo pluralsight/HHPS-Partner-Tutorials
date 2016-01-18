@@ -102,8 +102,6 @@ $ python -m SimpleHTTPServer
 
 > **Note:** Windows users, be sure to check out [cmder](http://bliker.github.io/cmder/) console emulator. It is the closest thing to Linux and Mac OS X Terminal for Windows operating system. I absolutely love using it when I am coding on my Surface Pro 3.
 
-![](http://bliker.github.io/cmder/img/main.jpg)
-
 Go to [http://localhost:8000](http://localhost:8000) and you should see a blank page since we have not added any styles or content yet. Open Google Chrome's JavaScript Console <span style="color: #333333">(** Mac OS X**: ⌥ + ⌘ + J or ** Windows**: Ctrl + Shift + J) and verify</span> there are no errors.
 
 ## 4. Bootstrapping UI
@@ -920,7 +918,7 @@ Let's shift gears for a moment and switch over to our back-end code. We will be 
 
 In the **instagram** directory create a new folder called **server**, it should be a sibling of **client**.
 
-[![Screenshot 2014-10-28 22.03.00](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-28-22.03.00.png)](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-28-22.03.00.png)
+[![Screenshot 2014-10-28 22.03.00](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-28-22.03.00.png)
 
 In the **server** directory create two new files: <span style="text-decoration: underline">package.json</span> and <span style="text-decoration: underline">server.js</span>. Open <span style="text-decoration: underline">package.json</span> and paste the following code with all package dependencies for our app:
 
@@ -977,18 +975,17 @@ app.listen(app.get('port'), function() {
 
 ```
 
-
 > **Note:** All of our back-end code from here on will be go into <span style="text-decoration: underline">app.js</span> unless otherwise stated. In other words I am not going to break our Express app into separate models, controllers, routes, etc. just for the sake of simplicity.
 
 Let's install package dependencies and see if our server is working without any issues. Open the Terminal and navigate to the **instagram/server** directory, then type **npm install**:
 
-[![Screenshot 2014-10-28 22.17.54](assets/Screenshot-2014-10-28-22.17.54.png)](assets/Screenshot-2014-10-28-22.17.54.png)
+[![Screenshot 2014-10-28 22.17.54](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-28-22.17.54.png)
 
 By the way, I am using the fish shell with [oh-my-fish](https://github.com/bpinto/oh-my-fish) project. I really like that auto-complete feature. What's even more awesome is that it remembers the last command you have typed. If I were to start typing **py** it will suggest me **<span class="s1">python</span> <span class="s3">-m</span>** <span class="s3">**SimpleHTTPServer** which is exactly what I wanted.</span>
 
 After you install all of the app dependencies we can now start the server.
 
-[![Screenshot 2014-10-28 22.18.31](assets/Screenshot-2014-10-28-22.18.31.png)](assets/Screenshot-2014-10-28-22.18.31.png)
+![Screenshot 2014-10-28 22.18.31](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-28-22.18.31.png)
 
 You can either run npm start or node server.js to start this Express application. If you did everything correctly you should see the following message:
 
@@ -1052,11 +1049,11 @@ I have already talked about Mongoose models enough in[How To Implement Password 
 
 One thing I will mention is the **select** property on the password field. This tells Mongoose not to retrieve the password field unless explicitly stated otherwise via **"+password"** option as we will see shortly. Otherwise we would need to manually remove password field from a **user** instance before sending it off to Angular.
 
-[![Screenshot 2014-10-28 23.08.54](assets/Screenshot-2014-10-28-23.08.54.png)](assets/Screenshot-2014-10-28-23.08.54.png)
+![Screenshot 2014-10-28 23.08.54](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-28-23.08.54.png)
 
 Start MongoDB if you haven't already done so then restart the Express server. You will see the following error if your MongoDB process is not running:
 
-[![Screenshot 2014-10-28 23.09.58](assets/Screenshot-2014-10-28-23.09.58.png)](assets/Screenshot-2014-10-28-23.09.58.png)
+![Screenshot 2014-10-28 23.09.58](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-28-23.09.58.png)
 
 > **Note:** If you have installed MongoDB via a package manager on Mac or Linux you may have to run **mongod** command. On Windows you will need to open **mongod.exe** after downloading and installing MongoDB.
 
@@ -1088,7 +1085,7 @@ The JWT library that we are using ([jwt-simple](https://github.com/hokaccha/node
 
 The reserved **sub** claim on _line 5_ is used to store user's unique ID ([MongoDB ObjectId](http://docs.mongodb.org/manual/reference/object-id/)) for that particular user. Why did I use **sub** instead of **id** or **user_id**? It came down to a personal preference, but also because Google happens to be using it as unique identifier for the user in OAuth 2.0 OpenID Connect:
 
-[![Screenshot 2014-10-31 22.11.02](assets/Screenshot-2014-10-31-22.11.02.png)](assets/Screenshot-2014-10-31-22.11.02.png)
+![Screenshot 2014-10-31 22.11.02](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-31-22.11.02.png)
 
 The next function is responsible for preventing unauthorized users from accessing protected routes. For instance, we don't want to allows users to access **/api/feed** route (Instagram feed) unless they are authenticated.
 
@@ -1146,10 +1143,9 @@ $httpProvider.interceptors.push(['$q', function($q) {
 
 ```
 
-
 You do not have to understand everything in the code above, I only wanted to show you why we are checking for the Authorization header in Express. By the way, you can inspect requests from Google Chrome's _Developer Tools_ under the _Network_ tab:
 
-[![Screenshot 2014-11-09 18.08.27](assets/Screenshot-2014-11-09-18.08.27.png)](assets/Screenshot-2014-11-09-18.08.27.png)
+![Screenshot 2014-11-09 18.08.27](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-11-09-18.08.27.png)
 
 Ok, back to **isAuthenticated()** middleware function. After checking for presence of the Authorization header, we then need to decode that token using the same _secret_ stringwe used to generate the token. Decoding the token will give us back its original claims object, for example:
 
@@ -1235,7 +1231,7 @@ As it turns out, document objects returned by Mongoose are immutable, so deletin
 
 The reason for structuring _Incorrect email_ and _Incorrect password_ error messages in such a way has more to do with the way we display validation errors on the login form. Instead of displaying all errors above the form as it is typically done, an error message is displayed right under each individual form field.
 
-[![Screenshot 2014-10-27 00.32.32](assets/Screenshot-2014-10-27-00.32.32.png)](assets/Screenshot-2014-10-27-00.32.32.png)
+![Screenshot 2014-10-27 00.32.32](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-27-00.32.32.png)
 
 Next up is the signup route. It starts by checking if email address is already taken (cannot have multiple users with the same email). It then hashes the password using **bcrypt** and saves the user to database.
 
@@ -1289,8 +1285,9 @@ app.post('/auth/instagram', function(req, res) {
 
 The request to **/auth/instagram** will be made by Satellizer after _authorization code_ has been obtained from the popup. This all happens really fast and the popup will be closed before you can see the _code_ query parameter.
 
-![Screenshot 2014-10-27 23.43.11](assets/Screenshot-2014-10-27-23.43.11.png)Here is the Satellizer's source code that makes this happen, where **defaults.url** is **http://localhost:3000/auth/instagram** that we specified in **client**/<span style="text-decoration: underline">app.js</span>.
+![Screenshot 2014-10-27 23.43.11](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-10-27-23.43.11.png)
 
+Here is the Satellizer's source code that makes this happen, where **defaults.url** is **http://localhost:3000/auth/instagram** that we specified in **client**/<span style="text-decoration: underline">app.js</span>.
 
 ``` javascript
 
@@ -1332,8 +1329,7 @@ After obtaining an _authorization code_ the next step is to exchange it for an _
 
 Instagram requires all of the above parameters when sending a POST request to **https://api.instagram.com/oauth/access_token**.
 
-[![Screenshot 2014-11-09 21.16.20](assets/Screenshot-2014-11-09-21.16.20.png)](assets/Screenshot-2014-11-09-21.16.20.png)
-
+![Screenshot 2014-11-09 21.16.20](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-11-09-21.16.20.png)
 
 ``` javascript
 
@@ -1360,7 +1356,6 @@ app.post('/auth/instagram', function(req, res) {
 });
 
 ```
-
 
 > **Note:** For production use, It may be better to create a function similar to **isAuthenticated** but it returns _true_ or _false_ instead of sending a response. The code above simply checks if **req.headers.authorization** is present. It does not check if the token is valid or whether it is properly formatted.
 
@@ -1564,10 +1559,11 @@ app.post('/auth/instagram', function(req, res) {
 });
 ```
 
-
 Below is the collapsed overview of all the code we have in <span style="text-decoration: underline">server.js</span> so far:
 
-[![Screenshot 2014-11-09 23.04.06](assets/Screenshot-2014-11-09-23.04.06.png)](assets/Screenshot-2014-11-09-23.04.06.png)We are almost done on the back-end. Only three more routes to go and they are significantly smaller and simpler than the one above.
+![Screenshot 2014-11-09 23.04.06](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-11-09-23.04.06.png)
+
+We are almost done on the back-end. Only three more routes to go and they are significantly smaller and simpler than the one above.
 
 ## <span style="color: #000000">**15\. Instagram API Endpoints [](#toc)**</span>
 
@@ -1584,8 +1580,7 @@ Before writing a single line of code we must first find out which endpoints do w
 <img ng-src="{{photo.images.standard_resolution.url}}" class="thumbnail img-responsive">
 ```
 
-[![Screenshot 2014-11-09 23.31.06](assets/Screenshot-2014-11-09-23.31.06.png)](assets/Screenshot-2014-11-09-23.31.06.png)
-
+![Screenshot 2014-11-09 23.31.06](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-11-09-23.31.06.png)
 
 ``` javascript
 app.get('/api/feed', isAuthenticated, function(req, res) {
@@ -1601,13 +1596,11 @@ app.get('/api/feed', isAuthenticated, function(req, res) {
 
 ```
 
-
 Notice the **isAuthenticated** middleware in the code above. It prevents unauthorized access to this route. If you are not signed-in and try to go to **http://localhost:3000/api/feed** you will get the following error message as expected:
 
-[![Screenshot 2014-11-09 23.43.51](assets/Screenshot-2014-11-09-23.43.51.png)](assets/Screenshot-2014-11-09-23.43.51.png)
+![Screenshot 2014-11-09 23.43.51](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-11-09-23.43.51.png)
 
 Our second route will retrieve information about a media object with a given media ID:
-
 
 ``` javascript
 
@@ -1628,7 +1621,6 @@ You may have realized by now that there is virtually zero input validation and e
 
 Our last API route will allow to set a like on a media by the currently authenticated user:
 
-
 ``` javascript
 app.post('/api/like', isAuthenticated, function(req, res, next) {
   var mediaId = req.body.mediaId;
@@ -1647,18 +1639,19 @@ app.post('/api/like', isAuthenticated, function(req, res, next) {
 });
 ```
 
-
 Instagram allows you to make **5,000** requests per hour per token to their API endpoints. If you exceed that limit you will get a Rate Limit Exceeded error. We will use [SweetAlert.js](http://tristanedwards.me/sweetalert) on the client-side to display this error message when a user tries to like a media after API limit has been exceeded.
 
 ## 16. Back to the client-side
 
 Let's go ahead and create a new user then try logging in to verify that our back-end implementation is working as expected.
 
-Reload the browser, click on the _Sign up_ link in the top Navbar, fill out the fields click on the _Sign up_ button.![Screenshot 2014-11-23 19.16.59](assets/Screenshot-2014-11-23-19.16.59.png)
+Reload the browser, click on the _Sign up_ link in the top Navbar, fill out the fields click on the _Sign up_ button.
+
+![Screenshot 2014-11-23 19.16.59](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-11-23-19.16.59.png)
 
 If all goes well you should be redirected to this page:
 
-![Screen Shot 2014-11-23 at 7.38.03 PM](assets/Screen-Shot-2014-11-23-at-7.38.03-PM.png)
+![Screen Shot 2014-11-23 at 7.38.03 PM](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screen-Shot-2014-11-23-at-7.38.03-PM.png)
 
 What just happened? Well, by default, Satellizer will automatically sign in the user after successful user registration. This behavior can be turned off in <span style="text-decoration: underline">app.js</span> if you wish:
 
@@ -1690,11 +1683,9 @@ $scope.linkInstagram = function() {
 };
 ```
 
-
 The only difference here is that we are calling **API.getFeed()** (which we are about to implement) after successfully linking the Instagram account. Once we get the data from the server and set it to $scope.photos, Angular's two-way binding will take care of the rest for us by displaying those photos in the **Home** template.
 
 Before we move to implementing the **API** service, add the following code somewhere in the **HomeCtrl** controller as well:
-
 
 ``` javascript
 if ($auth.isAuthenticated() && ($rootScope.currentUser && $rootScope.currentUser.username)) {
@@ -1704,16 +1695,15 @@ if ($auth.isAuthenticated() && ($rootScope.currentUser && $rootScope.currentUser
 }
 ```
 
-
 It is essentially the same code we have just added above. On page load, if user is authenticated, it will call **API.getFeed()** to fetch the latest photos from the user's Instagram feed.
 
-![](assets/Screenshot-2014-11-25-20.38.09.png)
+![](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-11-25-20.38.09.png)
 
 > **Note:** Do not forget to inject the **API** service into **HomeCtrl** controller as shown above.
 
 The only thing that is missing now is the **API** service itself. In the **client** directory create a new folder called **services**. That's where we will put our custom AngularJS services, factories, providers. In this tutorial we will only a single service.
 
-[![Screenshot 2014-11-25 20.05.59](assets/Screenshot-2014-11-25-20.05.59.png)](assets/Screenshot-2014-11-25-20.05.59.png)
+![Screenshot 2014-11-25 20.05.59](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-11-25-20.05.59.png)
 
 In this new **services** folder create a file called <span style="text-decoration: underline">api.js</span> with the following contents:
 
@@ -1737,21 +1727,17 @@ angular.module('Instagram')
   });
 ```
 
-
 The main purpose of this particular service is to abstract away HTTP requests to our server. The benefits of separating concerns will become more obvious once your app grows to be a little more complex than what we have here.
 
 Finally, do not forget to include this service in <span style="text-decoration: underline">index.html</span>:
-
 
 ``` xml
 <script src="services/api.js"></script>
 ```
 
-
 Reload the browser then click on the _Sign in with Instagram button_. After you log in to Instagram and successfuly authorize this app to use your Instagram profile information you should see a grid of photos displayed on the home page.
 
 However, if you refresh the browser one more time you will be stuck on _Sign in with Instagram_ screen once again. Let's fix that. Open <span style="text-decoration: underline">app.js</span> and add append the following **.run** block:
-
 
 ``` javascript
 .run(function($rootScope, $window, $auth) {
@@ -1761,11 +1747,9 @@ However, if you refresh the browser one more time you will be stuck on _Sign in 
 });
 ```
 
-
 > **Note:** You must remove the semicolon after the **.config** block above in order to chain the **.run** code block, otherwise you will have an invalid JavaScript syntax.
 
 Here is the whole thing:
-
 
 ``` javascript
 angular.module('Instagram', ['ngRoute', 'ngMessages', 'chieffancypants.loadingBar', 'satellizer'])
@@ -1809,10 +1793,9 @@ angular.module('Instagram', ['ngRoute', 'ngMessages', 'chieffancypants.loadingBa
   });
 ```
 
-
 What this allows us to do is to grab the user object stored in the browser's local storage and assign it onto **$rootScope.currentUser** that is then globally available in the Angular application.
 
-[![Screenshot 2014-11-25 21.01.18](assets/Screenshot-2014-11-25-21.01.18.png)](assets/Screenshot-2014-11-25-21.01.18.png)
+![Screenshot 2014-11-25 21.01.18](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-11-25-21.01.18.png)
 
 Remember, with single page applications when you reload the browser, all your changes will be lost and the app is restored back to the original state. That is why we store the user object in browser's local storage after successful sign in, and then retrieve it when app is loaded. Consequently, it is our responsibility to clean up this local storage object during the user _log out_ process.
 
@@ -1897,9 +1880,9 @@ There is no point in going over this template as there no new concepts here that
 
 If you reload the browser and click on one of the thumbnails you should see this newly created template. However, since we have not created a controller for this page yet to fetch the data, nothing will be displayed here.
 
-[![Screenshot 2014-11-25 21.58.08](assets/Screenshot-2014-11-25-21.58.08.png)](assets/Screenshot-2014-11-25-21.58.08.png)
-In the **controllers** directory, create a new file called <span style="text-decoration: underline">detail.js</span>. Its main responsibilities are to handle <em>Like</em> action and fetch media data.
+![Screenshot 2014-11-25 21.58.08](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-11-25-21.58.08.png)
 
+In the **controllers** directory, create a new file called <span style="text-decoration: underline">detail.js</span>. Its main responsibilities are to handle <em>Like</em> action and fetch media data.
 
 ``` javascript
 angular.module('Instagram')
@@ -1920,7 +1903,6 @@ angular.module('Instagram')
   };
 });
 ```
-
 
 Notice how I am stripping the Instagram media id from URL path and pass it to **API.getMediaById(mediaId)**. When we are navigating to the detail page by clicking on a thumbnail, at that point we do know what is the media id, hence this anchor tag:
 
@@ -1954,7 +1936,6 @@ angular.module('Instagram')
   });
 ```
 
-
 This code should be fairly straightforward. There are only two methods here, both of which rely on the Satellizer module to check if user is authenticated and to perform a log out.
 
 Log out is actually simpler than you might think at first. All it does is clear the JSON Web Token from local storage. There are no external HTTP requests to the server. Notice that as I mentioned earlier we need to delete **currentUser** from the local storage, otherwise it will be as if user is still signed in, while JSON Web Token is no longer present. No JWT token = Not Authenticated.
@@ -1985,7 +1966,6 @@ Open <span style="text-decoration: underline">index.html</span> and replace the 
 </div>
 ```
 
-
 Refresh the page and assuming that you are still signed-in, both _Log in / Sign up_ links should no longer be visible. Additionally, you should see your Instagram profile picture and username in the top right corner.
 
 ![](https://lh6.googleusercontent.com/-TYJRMyl6254/VIiZa2KTbpI/AAAAAAAAEpc/DkwW_cX4OHI/w1982-h1290-no/Screenshot%2B2014-11-25%2B21.46.12.png)
@@ -2008,10 +1988,9 @@ There a few easy optimizations we could do to speed up the performance of our we
 
 But first, Let's make a small adjustment to our file structure. Move <span style="text-decoration: underline">package.json</span> from **instagram/server** one level up to **instagram** directory.
 
-![Screenshot 2014-12-07 16.32.37](assets/Screenshot-2014-12-07-16.32.37.png)
+![Screenshot 2014-12-07 16.32.37](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-12-07-16.32.37.png)
 
 Then, update the **"start"** path to **"node server/server.js"** in order reflect the new structure. This way you could still type **npm start** to automatically start the Express app. Your <span style="text-decoration: underline">package.json</span> should look something like below:
-
 
 ``` javascript
 {
@@ -2040,14 +2019,13 @@ npm install --save-dev gulp gulp-csso gulp-recess gulp-ng-annotate gulp-uglify g
 ```
 
 
-![](assets/Screenshot-2014-12-07-17.47.12.png)
+![](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-12-07-17.47.12.png)
 
 > **Note:** The **--save-dev** flag will install specified packages and automatically add them to the **devDependencies** object in <span style="text-decoration: underline">package.json</span> as shown in the screenshot below.
 
-![](assets/Screenshot-2014-12-07-17.48.04.png)
+![](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-12-07-17.48.04.png)
 
 Create a new file <span style="text-decoration: underline">gulpfile.js</span> in the **instagram** directory and the following dependencies:
-
 
 ``` javascript
 var gulp = require('gulp');
@@ -2096,12 +2074,9 @@ gulp.task('minify', function() {
 });
 ```
 
-
-
 In _Gulp_ everything flows from top to bottom, where each **.pipe()** method modifies the output in some shape or form, all the way until **gulp.dest()** is reached and output is saved to file.
 
 The reason for passing such a long array of source files is because the order matters here for concatenation purposes. For example, we have to load <span style="text-decoration: underline">angular.js</span> before loading any Angular modules/libraries, likewise we have to load Angular modules before loading <span style="text-decoration: underline">app.js</span> and so on. The same reason we have defined `<script>` tags in this particular order in the index.html:
-
 
 ``` xml
 <script src="vendor/angular.js"></script>
@@ -2118,16 +2093,15 @@ The reason for passing such a long array of source files is because the order ma
 <script src="directives/serverError.js"></script>
 ```
 
-
 Next, using [gulp-filter](https://www.npmjs.org/package/gulp-filter) we "take a detour" to another **gulp.src()** path to convert HTML templates into JavaScript by taking advantage of Angular's [$templateCache](https://docs.angularjs.org/api/ng/service/$templateCache) feature. We have do this because Gulp does not allow you to specify multiple sources per task. After we finish with _angularTemplateCache_ calling **restore()** method on a filter will take us back to the original **gulp.src()**.
 
 > **Note:** As an alternative we could have created a separate task called **templates** that gets run before **minify** task and then include the file generated by **templates** task (e.g. <span style="text-decoration: underline">templates.js</span>) in the **minify** task, and finally, remove <span style="text-decoration: underline">templates.js</span> after we are done. It is more work, but I thought I would point it out if you do not wish to use _gulp-filter_.
 
 The rest of the flow in **minify** task should be self-explanatory. Here is the preview of the minified <span style="text-decoration: underline">app.min.js</span> file:
 
-![Screenshot 2014-12-07 17.50.28](assets/Screenshot-2014-12-07-17.50.28.png)Open <span style="text-decoration: underline">index.html</span> and comment out or remove previous `<script>` tags, we can now just include the single minified file:
+![Screenshot 2014-12-07 17.50.28](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-12-07-17.50.28.png)
 
-
+Open <span style="text-decoration: underline">index.html</span> and comment out or remove previous `<script>` tags, we can now just include the single minified file:
 
 ``` xml
 <!--<script src="vendor/angular.js"></script>-->
@@ -2145,10 +2119,7 @@ The rest of the flow in **minify** task should be self-explanatory. Here is the 
 <script src="app.min.js"></script>
 ```
 
-
 Moving on to the next Gulp task - [gulp-complexity](https://www.npmjs.org/package/gulp-complexity). It is a JavaScript complexity analysis tool. Again, not necessary for the optimizations we are doing but worth sharing nonetheless. Add the following task:
-
-
 
 ``` javascript
 gulp.task('complexity', function() {
@@ -2161,13 +2132,11 @@ gulp.task('complexity', function() {
 });
 ```
 
-
 Here, we use the exclamation sign **(!)** to tell Gulp which files and directories to ignore. Now, if you run **gulp complexity** in the Terminal you should see something like the following:
 
-![Screenshot 2014-12-07 18.29.30](assets/Screenshot-2014-12-07-18.29.30.png)
+![Screenshot 2014-12-07 18.29.30](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-12-07-18.29.30.png)
 
 The last two tasks that we are going to add will be responsible for minifying and performing code quality analysis on CSS.
-
 
 ``` javascript
 gulp.task('styles', function() {
@@ -2189,8 +2158,6 @@ gulp.task('recess', function() {
 
 ```
 
-
-
 Open <span style="text-decoration: underline">index.html</span> and update the stylesheet references from this:
 
 ``` xml
@@ -2198,15 +2165,17 @@ Open <span style="text-decoration: underline">index.html</span> and update the s
 <link rel="stylesheet" href="css/styles.css">
 ```
 
-
 To the following:
 
 ``` xml
 <link rel="stylesheet" href="css/styles.min.css">
 ```
 
-Now, instead of serving 3 full size CSS files we are only serving 1 minified CSS file. I have intentionally moved **recess **into a separate task because if it fails, it will stop the entire Gulp process, which can be quite annoying, especially when you start the Gulp watcher "set it and forget it" in the background. However, you could use [gulp-plumber](https://www.npmjs.org/package/gulp-plumber) or manually catch Gulp error events if you wish to do so. Let's run **gulp recess** and see what it looks like: ![Screenshot 2014-12-07 18.58.07](assets/Screenshot-2014-12-07-18.58.07.png) The last thing we are going to do is add task watchers and a default task:
+Now, instead of serving 3 full size CSS files we are only serving 1 minified CSS file. I have intentionally moved **recess **into a separate task because if it fails, it will stop the entire Gulp process, which can be quite annoying, especially when you start the Gulp watcher "set it and forget it" in the background. However, you could use [gulp-plumber](https://www.npmjs.org/package/gulp-plumber) or manually catch Gulp error events if you wish to do so. Let's run **gulp recess** and see what it looks like: 
 
+![Screenshot 2014-12-07 18.58.07](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-12-07-18.58.07.png) 
+
+The last thing we are going to do is add task watchers and a default task:
 
 ``` javascript
 gulp.task('watch', function() {
@@ -2234,7 +2203,6 @@ Ok, we are done with Gulp for the moment. Next, we will add gzip compression and
 npm install --save compression
 ```
 
-
 ![](https://lh3.googleusercontent.com/-nC20TtSOiVc/VIiZWk1eUoI/AAAAAAAAEpM/ebWnrBJKLpk/w1710-h1290-no/Screenshot%2B2014-12-07%2B19.14.49.png)
 
 Then add it to the list of module dependencies in **server/**<span style="text-decoration: underline">server.js</span>:
@@ -2253,7 +2221,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 ```
-
 
 To enable static assets caching update the static middleware as following:
 
@@ -2292,13 +2259,15 @@ This allows us to ignore **node_modules** directory when we commit files to Git.
 
 We will use [Heroku](http://heroku.com) to host the back-end piece and [Dropbox](http://dropbox.com) to host the front-end piece of our web application. Both services are free to use.
 
-![Dropbox Logo](assets/logotype-vflFbF9pY.png)![Heroku Logo](assets/heroku-Logo-1.jpg)
+![Dropbox Logo](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/logotype-vflFbF9pY.png)
+
+![Heroku Logo](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/heroku-Logo-1.jpg)
 
 Let's start with the back-end component. First, sign up and create a new application on Heroku.
 
 Heroku's new clean Dashboard UI is very intuitive to use. (Great job Heroku engineers and designers)
 
-![Screenshot 2014-12-07 21.21.26](assets/Screenshot-2014-12-07-21.21.26.png)
+![Screenshot 2014-12-07 21.21.26](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-12-07-21.21.26.png)
 
 On the next screen you will see the instructions to get started. After you successfully run **heroku login** you can proceed to creating a new Git repository. Heroku, like many other cloud platforms, uses Git for the deployment process.
 
@@ -2312,14 +2281,13 @@ $ git commit -am "initial commit"
 $ git push heroku master
 ```
 
-
-![Screenshot 2014-12-07 22.20.20](assets/Screenshot-2014-12-07-22.20.20.png)
+![Screenshot 2014-12-07 22.20.20](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-12-07-22.20.20.png)
 
 After it is done, visit <span style="text-decoration: underline">http://your-app-name.herokuapp.com</span> (in my case it is <span style="text-decoration: underline">http://instagram-server.herokuapp.com</span>) and you should see an **Application Error** page.
 
 I already expected that, but let's take a look what exactly caused it. Inside the <span style="text-decoration: underline">**instagram**</span> directory run **heroku logs** command:
 
-![Screenshot 2014-12-07 22.22.34](assets/Screenshot-2014-12-07-22.22.34.png)
+![Screenshot 2014-12-07 22.22.34](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-12-07-22.22.34.png)
 
 This error message basically says that our app was unable to connect to MongoDB on port 27017\. We had to download, install and start MongoDB locally in order for our app to work, however, when we deployed our app to Heroku unfortunately our database was not able to magically teleport to Heroku as well.
 
@@ -2331,33 +2299,37 @@ mongodb://hackhands:hackhands@ds063140.mongolab.com:63140/instagram
 
 Go back to Heroku dashboard and click on the _Settings_ tab. You should see a button there called _Reveal Config Vars_. Click on it and then click on the _Edit_ button in the same view. This is where you can set those configuration values from <span style="text-decoration: underline">config.js</span>. If you specify an envrionment variable here it will use that value, otherwise it will fallback to the string value.
 
-![Screenshot 2014-12-07 22.44.29](assets/Screenshot-2014-12-07-22.44.29.png)
+![Screenshot 2014-12-07 22.44.29](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-12-07-22.44.29.png)
 
 Once you are ready to proceed click _Save_.
 
-![Screenshot 2014-12-07 22.50.57](assets/Screenshot-2014-12-07-22.50.57.png)
+![Screenshot 2014-12-07 22.50.57](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-12-07-22.50.57.png)
 
 Now that is done, all that is left to do is restart our Heroku app by running **heroku restart -a my-app-name**:
 
-![Screenshot 2014-12-07 23.02.50](assets/Screenshot-2014-12-07-23.02.50.png)If all goes well you should not see the **Application Error** page any longer. Keep in mind, since we have not created a **GET /** route you will not see anything if you just visit http://your-app-name.herokuapp.com. But we could check **GET /api/feed** routeto make sure it is working correctly:
+![Screenshot 2014-12-07 23.02.50](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-12-07-23.02.50.png)
 
-![Screenshot 2014-12-07 23.04.06](assets/Screenshot-2014-12-07-23.04.06.png)We are done with the back-end piece. Next, let's move to the front-end component. Copy all files from the <span style="text-decoration: underline">**client**</span> directory into Dropbox's <span style="text-decoration: underline">**Public** **Folder**</span>, preferably into a sub-directory, e.g. <span style="text-decoration: underline">**instagram**</span> to keep it separate from other files that you might have in there.
+If all goes well you should not see the **Application Error** page any longer. Keep in mind, since we have not created a **GET /** route you will not see anything if you just visit http://your-app-name.herokuapp.com. But we could check **GET /api/feed** routeto make sure it is working correctly:
 
-![Screenshot 2014-12-07 21.45.37](assets/Screenshot-2014-12-07-21.45.37.png)
+![Screenshot 2014-12-07 23.04.06](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-12-07-23.04.06.png)
+
+We are done with the back-end piece. Next, let's move to the front-end component. Copy all files from the <span style="text-decoration: underline">**client**</span> directory into Dropbox's <span style="text-decoration: underline">**Public** **Folder**</span>, preferably into a sub-directory, e.g. <span style="text-decoration: underline">**instagram**</span> to keep it separate from other files that you might have in there.
+
+![Screenshot 2014-12-07 21.45.37](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-12-07-21.45.37.png)
 
 Right-click on <span style="text-decoration: underline">index.html</span> and select _Copy public link..._ from the dropdown menu. Copy that URL to clipboard.
 
-![Screenshot 2014-12-07 21.55.22](assets/Screenshot-2014-12-07-21.55.22.png)
+![Screenshot 2014-12-07 21.55.22](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-12-07-21.55.22.png)
 
 Open the <span style="text-decoration: underline">app.js</span> file from the original **instagram/client** directory and update Satellizer's Instagram provider with the new URLs. You will need to update: **loginUrl**, **signupUrl**,as well as OAuth 2.0 **url** and **redirectUri** with your own Heroku and Dropbox URLs.
 
-![](assets/Screenshot-2014-12-08-00.20.28.png)
+![](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-12-08-00.20.28.png)
 
 > **Note:** Do not forget to update **redirectUri** on [instagram.com/developer](http://instagram.com/developer) to the exact same **redirectUri** above.
 
 You will also need to update URLs in the **client/services/**<span style="text-decoration: underline">api.js</span>:
 
-![](assets/Screenshot-2014-12-08-00.20.19.png)
+![](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-12-08-00.20.19.png)
 
 Next, run **gulp** (if it is not already running) to update the <span style="text-decoration: underline">app.min.js</span> file. Then copy <span style="text-decoration: underline">app.min.js</span> and paste it into the <span style="text-decoration: underline">**instagram**</span> directory inside Dropbox's **Public Folder**, overwriting the old file.
 
@@ -2369,7 +2341,7 @@ Notice that I am using [**https://**instagram-server.herokuapp.com](https://inst
 
 If you followed all the steps correctly all requests between _Heroku_ (back-end) and _Dropbox_ (front-end) should be working successfully now.
 
-![Screenshot 2014-12-08 00.36.56](assets/Screenshot-2014-12-08-00.36.56.png)
+![Screenshot 2014-12-08 00.36.56](https://hackhands.com/data/blogs/ClosedSource/building-instagram-clone-angularjs-satellizer-nodejs-mongodb/assets/Screenshot-2014-12-08-00.20.50.png)
 
 But seriously, if you must have a front-end and a back-end pieces running on separate servers, at least consider using GitHub Pages, Amazon S3 or [Digital Ocean with Nginx](https://www.digitalocean.com/community/questions/how-can-i-configure-nginx-to-deliver-static-html-pages) to serve your static content. Also, cross origin requests are sometimes more trouble than it's worth, that is why I always prefer to have a server and a client running on the same host.
 
