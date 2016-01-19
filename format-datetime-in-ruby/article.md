@@ -7,10 +7,10 @@ Returns: Result in requested format First of all, let us create a new variable i
 ``` ruby
 t = Time.now > 2013-09-12 22:49:27 +0530
 ```
+
 Now, we have variable t holding current time value, now below are the examples of,
 
 ### Most Commonly used DateTime Formats
-
 
 |Code|Output|Description|
 |---|---|---|
@@ -31,17 +31,21 @@ Now, we have variable t holding current time value, now below are the examples o
 |t.strftime("%Z")|=> "IST"|# Gives **Time Zone** of the time|
 |t.strftime("%p")|=> "PM"|# Gives **AM / PM** of the time|
 
+
 These are the almost all formats that are required.
+
 
 ### Combinations:
 
 You can try these formats in combination too, For example,
+
+
 ``` ruby
 t.strftime("%H:%M:%S") > "22:49:27"
 ```
 
-
 ### Code to Print All Formats
+
 
 ``` ruby
 # Function to print strftime results
@@ -130,5 +134,6 @@ You can refer code at [Github](https://gist.github.com/akshaymohite/8578315) OR 
 |t.strftime('%X')|=> 16:38:02|
 |t.strftime('%Y')|=> 2014|
 |t.strftime('%Z')|=> IST|
+
 
 So, you can tweak your format to give the datetime output required for your purpose. I can only hope that the formatting of datetime data will be easier for you to handle now.
