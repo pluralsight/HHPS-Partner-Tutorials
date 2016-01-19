@@ -81,15 +81,16 @@ $ systemctl start docker
 $ systemctl enable docker
 ```
 
-
 Once you install docker, start your first container, like this.
 
 ``` bash
 $ docker run [image name] [command to run]
 ```
+
 *note that this is usage syntax, not a command
 
 ``` bash
 $ docker run ubuntu /bin/bash
 ```
+
 Next up, we will see how to use its command line interface in detail. Stay tuned for the rest of the series!
