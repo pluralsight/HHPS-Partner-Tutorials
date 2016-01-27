@@ -5,5 +5,7 @@
     "filename": "article.md",
     "language": null,
     "published": false,
-    "title": "Building a has_many, through model relationship and form with Cocoon"
+    "title": "Building a has_many, through model relationship and form with Cocoon",
+    "canonical_url": "https://hackhands.com/building-has_many-model-relationship-form-cocoon/",
+    "status": "302"
 }
