@@ -5,5 +5,7 @@
     "filename": "article.md",
     "language": null,
     "published": false,
-    "title": "A Beginner\u2019s Guide To Ruby"
+    "title": "A Beginner\u2019s Guide To Ruby",
+    "canonical_url": "https://hackhands.com/beginners-guide-ruby/",
+    "status": "302"
 }
