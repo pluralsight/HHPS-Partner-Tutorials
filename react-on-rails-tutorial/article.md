@@ -20,9 +20,7 @@ Besides carefully studying the original tutorial, I recommend:
 2. Play with the examples on the [React overview page](http://facebook.github.io/react/). Don’t just read the examples. You can play with the code right on that page!
 3. Read the [docs](http://facebook.github.io/react/docs/getting-started.html), which I found fairly interesting.
 
-
 ## Useful React Links
-
 
 1. [Completed React-Rails tutorial Live on Heroku](http://react-rails-tutorial.herokuapp.com/): Tutorial Live on Heroku.
 2. [Rails 4.2, React, completed tutorial](https://github.com/justin808/react-rails-tutorial): Github repo for completed tutorial.
@@ -30,9 +28,7 @@ Besides carefully studying the original tutorial, I recommend:
 4. [React Tutorial](http://facebook.github.io/react/docs/tutorial.html): The Node basis for this tutorial.
 5. [reactjs/react-tutorial](https://github.com/reactjs/react-tutorial): Github repo for official Node based tutorial.
 
-
-## Tutorial Step by Step
-
+## Tutorial Step-by-Step
 
 ### Create a brand new Rails 4.2 Application
 
